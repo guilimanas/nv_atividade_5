@@ -9,13 +9,21 @@ config=configparser.ConfigParser()
 config.read('conf')
 topico=config['THINGSPEAK']['TOPICO_PUBLISH']
 valor=0
-saida="ABRIU"
+
+# saida="ABRIU"
+
 while(True):
     valor=random.randint(0, 1)
     if valor==1:
-        dados = f"field1={saida}&status=MQTTPUBLISH"
-        publish.single(payload=dados, topic=topico, port=port, hostname=broker)
+
+       # dados = f"field1={saida}&status=MQTTPUBLISH"
+       # publish.single(payload=dados, topic=topico, port=port, hostname=broker)
+
         print("ABRIU")
     else:
         print("FECHOU")
-    time.sleep(20)
+
+    dados = f"field1={valor}&status=MQTTPUBLISH"
+    publish.single(payload=dados, topic=topico, port=port, hostname=broker)
+    
+    time.sleep(10)

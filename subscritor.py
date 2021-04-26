@@ -22,8 +22,11 @@ def tocar_audio():
         print('O arquivo musica.mp3 não está no diretório do script Python')
 def on_message(client,userdate,message):
     dados=json.loads(str(message.payload.decode()))
-    if dados['field1']=="ABRIU":
-        print(dados['field1'])
+    
+    # if dados['field1']=="ABRIU":
+    if int(dados['field1'])==1:
+        # print(dados['field1'])
+        print("ABRIU")
         tocar_audio()
 
 broker="mqtt.thingspeak.com"
@@ -34,5 +37,6 @@ topico=config['THINGSPEAK']['TOPICO_SUBSCRIBE']
 username=config['THINGSPEAK']['USERNAME']
 password=config['THINGSPEAK']['MQTT_API_KEY']
 subscribe.callback(on_message,qos=0,topics=topico,hostname=broker,port=port,client_id="clisub",auth={'username':username,'password':password})
+
 while(True):
-    time.sleep(28)
+    time.sleep(15)
